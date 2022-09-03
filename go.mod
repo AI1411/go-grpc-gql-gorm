@@ -3,6 +3,8 @@ module github.com/AI1411/go-grpc-gql
 go 1.19
 
 require (
+	github.com/joho/godotenv v1.4.0
+	github.com/kelseyhightower/envconfig v1.4.0
 	google.golang.org/grpc v1.49.0
 	google.golang.org/protobuf v1.28.1
 	gorm.io/driver/postgres v1.3.9

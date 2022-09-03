@@ -3,17 +3,36 @@ package db
 import (
 	"context"
 	"fmt"
+	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
-
 	"gorm.io/gorm"
+	"os"
 )
 
 type Client struct {
 	db *gorm.DB
 }
 
+type Env struct {
+	Hostname string // GGG_HOST
+	Port     string // GGG_PORT
+	User     string // GGG_USER
+	Password string // GGG_PASSWORD
+	Dbname   string // GGG_DBNAME
+}
+
 func NewClient() (*Client, error) {
-	db, err := open("localhost", "root", "root", "5432", "postgres")
+	if err := godotenv.Load(".env"); err != nil {
+		panic("Error loading .env file")
+	}
+	e := &Env{
+		Hostname: os.Getenv("GGG_HOSTNAME"),
+		Port:     os.Getenv("GGG_PORT"),
+		User:     os.Getenv("GGG_USERNAME"),
+		Password: os.Getenv("GGG_PASSWORD"),
+		Dbname:   os.Getenv("GGG_DATABASE"),
+	}
+	db, err := open(e.Hostname, e.User, e.Password, e.Port, e.Dbname)
 	if err != nil {
 		return nil, err
 	}
