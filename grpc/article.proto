@@ -1,0 +1,67 @@
+syntax = 'proto3';
+
+package article;
+
+option go_package = 'article/pb';
+
+message Article {
+  int64 id = 1;
+  string title = 2;
+  string content = 3;
+  string author = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message ArticleInput {
+  string author = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message CreateArticleRequest {
+  ArticleInput articleInput = 1;
+}
+
+message CreateArticleResponse {
+  Article article = 1;
+}
+
+message ReadArticleRequest {
+  int64 id = 1;
+}
+
+message ReadArticleResponse {
+  Article article = 1;
+}
+
+message UpdateArticleRequest {
+  int64 id = 1;
+  ArticleInput articleInput = 2;
+}
+
+message UpdateArticleResponse {
+  Article article = 1;
+}
+
+message DeleteArticleRequest {
+  int64 id = 1;
+}
+
+message DeleteArticleResponse {
+  int64 id = 1;
+}
+
+message ListArticleRequest {}
+
+message ListArticleResponse {
+  Article articles = 1;
+}
+
+service ArticleService {
+  rpc CreateArticle(CreateArticleRequest) returns (CreateArticleResponse);
+  rpc ReadArticle(ReadArticleRequest) returns (ReadArticleResponse);
+  rpc UpdateArticle(UpdateArticleRequest) returns (UpdateArticleResponse);
+  rpc DeleteArticle(DeleteArticleRequest) returns (DeleteArticleResponse);
+  rpc ListArticle(ListArticleRequest) returns (ListArticleResponse);
+}
