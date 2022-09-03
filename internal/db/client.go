@@ -3,10 +3,11 @@ package db
 import (
 	"context"
 	"fmt"
+	"os"
+
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"os"
 )
 
 type Client struct {
